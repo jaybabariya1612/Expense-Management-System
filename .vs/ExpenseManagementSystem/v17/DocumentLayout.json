@@ -1,0 +1,188 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\dashboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\dashboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\registerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\registerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\dashboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\dashboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\ucdashboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\ucdashboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\uccategoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\uccategoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\registerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\registerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\ucincomeform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\ucincomeform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|c:\\users\\admin\\source\\repos\\expensemanagementsystem\\expensemanagementsystem\\ucincomeform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2F827935-B231-4A67-878A-B193EF34B1AC}|ExpenseManagementSystem\\ExpenseManagementSystem.csproj|solutionrelative:expensemanagementsystem\\ucincomeform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RegisterForm.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\RegisterForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\RegisterForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\RegisterForm.cs",
+              "RelativeToolTip": "ExpenseManagementSystem\\RegisterForm.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAwwA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T11:55:12.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DashboardForm.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\DashboardForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\DashboardForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\DashboardForm.cs",
+              "RelativeToolTip": "ExpenseManagementSystem\\DashboardForm.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowB0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T11:39:23.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DashboardForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\DashboardForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\DashboardForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\DashboardForm.cs [Design]",
+              "RelativeToolTip": "ExpenseManagementSystem\\DashboardForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T11:36:08.22Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UCIncomeForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\UCIncomeForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\UCIncomeForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\UCIncomeForm.cs [Design]",
+              "RelativeToolTip": "ExpenseManagementSystem\\UCIncomeForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T11:00:29.265Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UCCategoryForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\UCCategoryForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\UCCategoryForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\UCCategoryForm.cs [Design]",
+              "RelativeToolTip": "ExpenseManagementSystem\\UCCategoryForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T10:59:35.039Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RegisterForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\RegisterForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\RegisterForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\RegisterForm.cs [Design]",
+              "RelativeToolTip": "ExpenseManagementSystem\\RegisterForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T10:56:52.385Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UCDashboardForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\UCDashboardForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\UCDashboardForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\UCDashboardForm.cs [Design]",
+              "RelativeToolTip": "ExpenseManagementSystem\\UCDashboardForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T10:33:17.173Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LoginForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\LoginForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\LoginForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\LoginForm.cs [Design]",
+              "RelativeToolTip": "ExpenseManagementSystem\\LoginForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T10:27:20.067Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoginForm.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\LoginForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\LoginForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\LoginForm.cs",
+              "RelativeToolTip": "ExpenseManagementSystem\\LoginForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T09:32:12.404Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UCIncomeForm.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\UCIncomeForm.cs",
+              "RelativeDocumentMoniker": "ExpenseManagementSystem\\UCIncomeForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\source\\repos\\ExpenseManagementSystem\\ExpenseManagementSystem\\UCIncomeForm.cs",
+              "RelativeToolTip": "ExpenseManagementSystem\\UCIncomeForm.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T08:37:10.474Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

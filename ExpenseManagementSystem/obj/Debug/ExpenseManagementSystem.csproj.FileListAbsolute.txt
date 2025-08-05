@@ -1,0 +1,17 @@
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\bin\Debug\ExpenseManagementSystem.exe.config
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\bin\Debug\ExpenseManagementSystem.exe
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\bin\Debug\ExpenseManagementSystem.pdb
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.LoginForm.resources
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.Properties.Resources.resources
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.RegisterForm.resources
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.csproj.GenerateResource.cache
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.exe
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.pdb
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.exe.config
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.DashboardForm.resources
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.UCCategoryForm.resources
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.UCDashboardForm.resources
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.UCIncomeForm.resources
+C:\Users\Admin\source\repos\ExpenseManagementSystem\ExpenseManagementSystem\obj\Debug\ExpenseManagementSystem.UCExpenseForm.resources
