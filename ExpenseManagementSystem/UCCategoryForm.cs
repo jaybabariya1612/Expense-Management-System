@@ -1,21 +1,25 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace ExpenseManagementSystem
 {
     public partial class UCCategoryForm : UserControl
     {
         public static readonly string cs =
-@"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
-        SqlConnection conn = new SqlConnection(cs);
+     @"Server=den1.mssql7.gear.host;Database=sql12793698;User Id=sql12793698;Password=Wd8ij_D1V2h~;TrustServerCertificate=True";
+
+        //public static readonly string cs = @"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
+        //MySqlConnection conn = new MySqlConnection(cs);
+        //SqlConnection conn = new SqlConnection(cs);
         public UCCategoryForm()
         {
             InitializeComponent();
@@ -103,7 +107,7 @@ namespace ExpenseManagementSystem
                     using (SqlConnection conn = new SqlConnection(cs))
                     {
                         conn.Open();
-                        string insertdata = "insert into tbl_Category(Category_Name,Category_Type,Category_Status,date_insert) values(@Category_Name,@Category_Type,@Category_Status,GETDATE())";
+                        string insertdata = "insert into tbl_Category(Category_Name,Category_Type,Category_Status,date_insert) values(@Category_Name,@Category_Type,@Category_Status,GETDATE()+1)";
                         using (SqlCommand cmd = new SqlCommand(insertdata, conn))
                         {
                             cmd.Parameters.AddWithValue("@Category_Name",CategorytextBox.Text.Trim());
@@ -145,7 +149,7 @@ namespace ExpenseManagementSystem
                         using (SqlConnection conn = new SqlConnection(cs))
                         {
                             conn.Open();
-                            string updatedata = "update tbl_category set Category_Name =@Category_Name,Category_Type =@Category_Type,Category_Status = @Category_Status,date_insert= GETDATE() where Category_id = @id";
+                            string updatedata = "update tbl_category set Category_Name =@Category_Name,Category_Type =@Category_Type,Category_Status = @Category_Status,date_insert= GETDATE()+1 where Category_id = @id";
                             using (SqlCommand cmd = new SqlCommand(updatedata, conn))
                             {
                                 cmd.Parameters.AddWithValue("@id", GetId);

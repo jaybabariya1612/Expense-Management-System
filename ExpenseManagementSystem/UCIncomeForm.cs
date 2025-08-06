@@ -1,98 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExpenseManagementSystem
 {
     public partial class UCIncomeForm : UserControl
     {
-        public static readonly string cs =@"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
-        SqlConnection conn = new SqlConnection(cs);
+        public static readonly string cs =
+            @"Server=den1.mssql7.gear.host;Database=sql12793698;User Id=sql12793698;Password=Wd8ij_D1V2h~;TrustServerCertificate=True";
+
+        private int GetId = 0;
+
         public UCIncomeForm()
         {
             InitializeComponent();
             DisplayCategory();
-            DisplayExpenseData();
+            DisplayIncomeData();
             TotalIncome();
         }
 
+        // ---------- TOTAL INCOME ----------
         public void TotalIncome()
         {
             using (SqlConnection conn = new SqlConnection(cs))
             {
-                string selectdata = "select SUM(income) from tbl_income";
+                string selectdata = "SELECT ISNULL(SUM(income),0) FROM tbl_income";
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(selectdata, conn))
                 {
-                    double count = (double)cmd.ExecuteScalar();
-                    totalIncomeValue.Text = "₹"+count.ToString();
+                    double count = Convert.ToDouble(cmd.ExecuteScalar());
+                    totalIncomeValue.Text = "₹" + count.ToString("N2");
                 }
             }
             ThisMonthIncome();
         }
 
+        // ---------- THIS MONTH INCOME ----------
         public void ThisMonthIncome()
         {
             using (SqlConnection conn = new SqlConnection(cs))
             {
-                string query = "SELECT SUM(income) FROM tbl_income " +
+                string query = "SELECT ISNULL(SUM(income),0) FROM tbl_income " +
                                "WHERE MONTH(date_income) = MONTH(GETDATE()) AND YEAR(date_income) = YEAR(GETDATE())";
                 conn.Open();
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    object result = cmd.ExecuteScalar();  // Use the same connection & command
-
-                    thisMonthIncomeValue.Text = (result != DBNull.Value && result != null)
-                        ? Convert.ToDecimal(result).ToString("c")
-                        : "₹0.00";
+                    double result = Convert.ToDouble(cmd.ExecuteScalar());
+                    thisMonthIncomeValue.Text = "₹" + result.ToString("N2");
                 }
             }
             LastMonthIncome();
         }
 
+        // ---------- LAST MONTH INCOME ----------
         public void LastMonthIncome()
         {
             using (SqlConnection conn = new SqlConnection(cs))
             {
-                string query = @"SELECT SUM(income) FROM tbl_income
-                         WHERE MONTH(date_income) = MONTH(DATEADD(MONTH, -1, GETDATE()))
-                         AND YEAR(date_income) = YEAR(DATEADD(MONTH, -1, GETDATE()))";
+                string query = @"SELECT ISNULL(SUM(income),0) FROM tbl_income
+                                 WHERE MONTH(date_income) = MONTH(DATEADD(MONTH, -1, GETDATE()+1))
+                                 AND YEAR(date_income) = YEAR(DATEADD(MONTH, -1, GETDATE()+1))";
                 conn.Open();
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    object result = cmd.ExecuteScalar();
-
-                    lastMonthIncomeValue.Text = (result != DBNull.Value && result != null)
-                        ? Convert.ToDecimal(result).ToString("c")
-                        : "₹0.00";
+                    double result = Convert.ToDouble(cmd.ExecuteScalar());
+                    lastMonthIncomeValue.Text = "₹" + result.ToString("N2");
                 }
             }
         }
 
-
-
+        // ---------- DISPLAY CATEGORY ----------
         public void DisplayCategory()
         {
-            using(SqlConnection conn = new SqlConnection(cs))
+            using (SqlConnection conn = new SqlConnection(cs))
             {
                 conn.Open();
-                //string selectdata = "select Income_id,Category,Item,income,description,date_income,date_insert from tbl_income";
-                string selectdata = "select Category_Name from tbl_category where Category_Type = @Category_Type and Category_Status = @Category_Status";
+                string selectdata = "SELECT Category_Name FROM tbl_category WHERE Category_Type = @Category_Type AND Category_Status = @Category_Status";
 
                 using (SqlCommand cmd = new SqlCommand(selectdata, conn))
                 {
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("@Category_Type","Income");
-                    cmd.Parameters.AddWithValue("@Category_Status","Active");
+                    cmd.Parameters.AddWithValue("@Category_Type", "Income");
+                    cmd.Parameters.AddWithValue("@Category_Status", "Active");
                     CategorycomboBox.Items.Clear();
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
@@ -100,10 +93,11 @@ namespace ExpenseManagementSystem
                         CategorycomboBox.Items.Add(dr["Category_Name"].ToString());
                     }
                 }
-                conn.Close();
             }
         }
-        public void clecontrol()
+
+        // ---------- CLEAR INPUT FIELDS ----------
+        public void ClearControls()
         {
             CategorycomboBox.SelectedIndex = -1;
             ItemTextBox.Text = "";
@@ -112,149 +106,147 @@ namespace ExpenseManagementSystem
             dateTimePicker.Value = DateTime.Now;
         }
 
-
-        public void DisplayExpenseData()
+        // ---------- DISPLAY INCOME DATA ----------
+        public void DisplayIncomeData()
         {
             IncomeData IData = new IncomeData();
             List<IncomeData> listdata = IData.IncomeListData();
             dataGridView1.AutoGenerateColumns = true;
             dataGridView1.DataSource = listdata;
         }
+
+        // ---------- ADD RECORD ----------
         private void AddButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (CategorycomboBox.SelectedIndex == -1 || ItemTextBox.Text == "" || IncometextBox.Text == "" || dateTimePicker.Text == "" || DiscriptionrichTextBox.Text == "" )
+                if (CategorycomboBox.SelectedIndex == -1 || string.IsNullOrWhiteSpace(ItemTextBox.Text) || string.IsNullOrWhiteSpace(IncometextBox.Text) || string.IsNullOrWhiteSpace(DiscriptionrichTextBox.Text))
                 {
-                    MessageBox.Show("Please Fill All the Blank Details", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please fill all the details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
-                {
-                    using (SqlConnection conn = new SqlConnection(cs))
-                    {
-                        conn.Open();
-                        string insertdata = "insert into tbl_income(Category,Item,income,description,date_income,date_insert) values (@Category,@Item,@income,@description,@date_income,GETDATE())";
 
-                        using (SqlCommand cmd = new SqlCommand(insertdata, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@Category", CategorycomboBox.SelectedItem);
-                            cmd.Parameters.AddWithValue("@Item", ItemTextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@income", IncometextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@description", DiscriptionrichTextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@date_income", dateTimePicker.Value);
-                            cmd.ExecuteNonQuery();
-                            MessageBox.Show("Added Successfully", "Success Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            DisplayExpenseData();
-                            TotalIncome();
-                            conn.Close();
-                            clecontrol();
-                        }
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    conn.Open();
+                    string insertdata = "INSERT INTO tbl_income(Category,Item,income,description,date_income,date_insert) " +
+                                        "VALUES (@Category,@Item,@income,@description,@date_income,GETDATE()+1)";
+
+                    using (SqlCommand cmd = new SqlCommand(insertdata, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Category", CategorycomboBox.SelectedItem);
+                        cmd.Parameters.AddWithValue("@Item", ItemTextBox.Text.Trim());
+                        cmd.Parameters.AddWithValue("@income", Convert.ToDouble(IncometextBox.Text.Trim()));
+                        cmd.Parameters.AddWithValue("@description", DiscriptionrichTextBox.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_income", dateTimePicker.Value);
+                        cmd.ExecuteNonQuery();
                     }
                 }
+
+                MessageBox.Show("Added Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DisplayIncomeData();
+                TotalIncome();
+                ClearControls();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
         }
 
+        // ---------- CLEAR BUTTON ----------
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            clecontrol();
+            ClearControls();
         }
-        private int GetId = 0;
+
+        // ---------- UPDATE RECORD ----------
         private void UpdateButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (CategorycomboBox.SelectedIndex == -1 || ItemTextBox.Text == "" || IncometextBox.Text == "" || dateTimePicker.Text == "" || DiscriptionrichTextBox.Text == "")
+                if (GetId == 0)
                 {
-                    MessageBox.Show("Please Select Record", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select a record to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
-                {
-                    using (SqlConnection conn = new SqlConnection(cs))
-                    {
-                        conn.Open();
-                        string updatedata = "update tbl_Income set Category=@Category,Item=@Item,income=@income,description=@description,date_income=@date_income,date_insert = GETDATE() where Income_id = @Income_id";
 
-                        using (SqlCommand cmd = new SqlCommand(updatedata, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@Income_id", GetId);
-                            cmd.Parameters.AddWithValue("@Category", CategorycomboBox.SelectedItem);
-                            cmd.Parameters.AddWithValue("@Item", ItemTextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@income", IncometextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@description", DiscriptionrichTextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@date_income", dateTimePicker.Value);
-                            cmd.ExecuteNonQuery();
-                            MessageBox.Show("Updated Successfully", "Success Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            DisplayExpenseData();
-                            TotalIncome();
-                            conn.Close();
-                            clecontrol();
-                        }
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    conn.Open();
+                    string updatedata = "UPDATE tbl_income SET Category=@Category,Item=@Item,income=@income,description=@description,date_income=@date_income,date_insert=GETDATE()+1 WHERE Income_id=@Income_id";
+
+                    using (SqlCommand cmd = new SqlCommand(updatedata, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Income_id", GetId);
+                        cmd.Parameters.AddWithValue("@Category", CategorycomboBox.SelectedItem);
+                        cmd.Parameters.AddWithValue("@Item", ItemTextBox.Text.Trim());
+                        cmd.Parameters.AddWithValue("@income", Convert.ToDouble(IncometextBox.Text.Trim()));
+                        cmd.Parameters.AddWithValue("@description", DiscriptionrichTextBox.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_income", dateTimePicker.Value);
+                        cmd.ExecuteNonQuery();
                     }
                 }
+
+                MessageBox.Show("Updated Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DisplayIncomeData();
+                TotalIncome();
+                ClearControls();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
-
         }
 
+        // ---------- SELECT ROW IN GRID ----------
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                 GetId = Convert.ToInt32(row.Cells[0].Value);
-                CategorycomboBox.SelectedItem= row.Cells[1].Value.ToString();
+                CategorycomboBox.SelectedItem = row.Cells[1].Value.ToString();
                 ItemTextBox.Text = row.Cells[2].Value.ToString();
                 IncometextBox.Text = row.Cells[3].Value.ToString();
                 DiscriptionrichTextBox.Text = row.Cells[4].Value.ToString();
-                dateTimePicker.Text= row.Cells[5].Value.ToString();
+                dateTimePicker.Text = row.Cells[5].Value.ToString();
             }
         }
 
+        // ---------- DELETE RECORD ----------
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (CategorycomboBox.SelectedIndex == -1 || ItemTextBox.Text == "" || IncometextBox.Text == "" || dateTimePicker.Text == "" || DiscriptionrichTextBox.Text == "")
+                if (GetId == 0)
                 {
-                    MessageBox.Show("Please Select The Data", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select a record to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
-                {
-                    if (MessageBox.Show("Are you sure you want to Delete ID " + GetId + "?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        using (SqlConnection conn = new SqlConnection(cs))
-                        {
-                            conn.Open();
-                            string deletedata = "delete tbl_income where income_id = @id";
-                            using (SqlCommand cmd = new SqlCommand(deletedata, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@id", GetId);
-                                cmd.ExecuteNonQuery();
-                                MessageBox.Show("Deleted Successfully", "Success Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                DisplayExpenseData();
-                                TotalIncome();
-                                conn.Close();
-                                clecontrol();
-                            }
-                        }
 
+                if (MessageBox.Show("Are you sure you want to delete ID " + GetId + "?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    using (SqlConnection conn = new SqlConnection(cs))
+                    {
+                        conn.Open();
+                        string deletedata = "DELETE FROM tbl_income WHERE Income_id=@id";
+                        using (SqlCommand cmd = new SqlCommand(deletedata, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@id", GetId);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+
+                    MessageBox.Show("Deleted Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DisplayIncomeData();
+                    TotalIncome();
+                    ClearControls();
                 }
-                DisplayExpenseData(); 
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
         }
     }

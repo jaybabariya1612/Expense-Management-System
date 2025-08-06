@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExpenseManagementSystem
 {
     public partial class UCExpenseForm : UserControl
     {
-        public static readonly string cs = @"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
-        SqlConnection conn = new SqlConnection(cs);
+        public static readonly string cs =
+            @"Server=den1.mssql7.gear.host;Database=sql12793698;User Id=sql12793698;Password=Wd8ij_D1V2h~;TrustServerCertificate=True";
+
+        private int GetId = 0;
 
         public UCExpenseForm()
         {
@@ -25,75 +21,68 @@ namespace ExpenseManagementSystem
             TotalExpense();
         }
 
-
-
+        // ---------- TOTAL EXPENSE ----------
         public void TotalExpense()
         {
             using (SqlConnection conn = new SqlConnection(cs))
             {
-                string selectdata = "select SUM(Expense) from tbl_Expense";
+                string selectdata = "SELECT ISNULL(SUM(expense),0) FROM tbl_expense";
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(selectdata, conn))
                 {
-                    double count = (double)cmd.ExecuteScalar();
-                    totalExpenseValue.Text = "₹" + count.ToString();
+                    double count = Convert.ToDouble(cmd.ExecuteScalar());
+                    totalExpenseValue.Text = "₹" + count.ToString("N2");
                 }
             }
             ThisMonthExpense();
         }
 
-
+        // ---------- THIS MONTH EXPENSE ----------
         public void ThisMonthExpense()
         {
             using (SqlConnection conn = new SqlConnection(cs))
             {
-                string query = "SELECT SUM(Expense) FROM tbl_Expense " +
-                               "WHERE MONTH(date_Expense) = MONTH(GETDATE()) AND YEAR(date_Expense) = YEAR(GETDATE())";
+                string query = "SELECT ISNULL(SUM(expense),0) FROM tbl_expense " +
+                               "WHERE MONTH(date_expense) = MONTH(GETDATE()) AND YEAR(date_expense) = YEAR(GETDATE())";
                 conn.Open();
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    object result = cmd.ExecuteScalar();  // Use the same connection & command
-
-                    thisMonthExpenseValue.Text = (result != DBNull.Value && result != null)
-                        ? Convert.ToDecimal(result).ToString("c")
-                        : "₹0.00";
+                    double result = Convert.ToDouble(cmd.ExecuteScalar());
+                    thisMonthExpenseValue.Text = "₹" + result.ToString("N2");
                 }
             }
             LastMonthExpense();
         }
 
+        // ---------- LAST MONTH EXPENSE ----------
         public void LastMonthExpense()
         {
             using (SqlConnection conn = new SqlConnection(cs))
             {
-                string query = @"SELECT SUM(Expense) FROM tbl_Expense
-                         WHERE MONTH(date_Expense) = MONTH(DATEADD(MONTH, -1, GETDATE()))
-                         AND YEAR(date_Expense) = YEAR(DATEADD(MONTH, -1, GETDATE()))";
+                string query = @"SELECT ISNULL(SUM(expense),0) FROM tbl_expense
+                                 WHERE MONTH(date_expense) = MONTH(DATEADD(MONTH, -1, GETDATE()+1))
+                                 AND YEAR(date_expense) = YEAR(DATEADD(MONTH, -1, GETDATE()+1))";
                 conn.Open();
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    object result = cmd.ExecuteScalar();
-
-                    lastMonthExpenseValue.Text = (result != DBNull.Value && result != null)
-                        ? Convert.ToDecimal(result).ToString("c")
-                        : "₹0.00";
+                    double result = Convert.ToDouble(cmd.ExecuteScalar());
+                    lastMonthExpenseValue.Text = "₹" + result.ToString("N2");
                 }
             }
         }
 
+        // ---------- DISPLAY CATEGORY ----------
         public void DisplayCategory()
         {
             using (SqlConnection conn = new SqlConnection(cs))
             {
                 conn.Open();
-                //string selectdata = "select Income_id,Category,Item,income,description,date_income,date_insert from tbl_income";
-                string selectdata = "select Category_Name from tbl_category where Category_Type = @Category_Type and Category_Status = @Category_Status";
+                string selectdata = "SELECT Category_Name FROM tbl_category WHERE Category_Type = @Category_Type AND Category_Status = @Category_Status";
 
                 using (SqlCommand cmd = new SqlCommand(selectdata, conn))
                 {
-                    cmd.CommandType = CommandType.Text;
                     cmd.Parameters.AddWithValue("@Category_Type", "Expense");
                     cmd.Parameters.AddWithValue("@Category_Status", "Active");
                     CategorycomboBox.Items.Clear();
@@ -103,11 +92,11 @@ namespace ExpenseManagementSystem
                         CategorycomboBox.Items.Add(dr["Category_Name"].ToString());
                     }
                 }
-                conn.Close();
             }
         }
 
-        public void clecontrol()
+        // ---------- CLEAR INPUT ----------
+        public void ClearControls()
         {
             CategorycomboBox.SelectedIndex = -1;
             ItemTextBox.Text = "";
@@ -116,6 +105,7 @@ namespace ExpenseManagementSystem
             dateTimePicker.Value = DateTime.Now;
         }
 
+        // ---------- DISPLAY EXPENSE DATA ----------
         public void DisplayExpenseData()
         {
             ExpenseData EData = new ExpenseData();
@@ -124,92 +114,91 @@ namespace ExpenseManagementSystem
             dataGridView1.DataSource = listdata;
         }
 
+        // ---------- ADD RECORD ----------
         private void AddButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (CategorycomboBox.SelectedIndex == -1 || ItemTextBox.Text == "" || ExpensetextBox.Text == "" || dateTimePicker.Text == "" || DiscriptionrichTextBox.Text == "")
+                if (CategorycomboBox.SelectedIndex == -1 || string.IsNullOrWhiteSpace(ItemTextBox.Text) || string.IsNullOrWhiteSpace(ExpensetextBox.Text) || string.IsNullOrWhiteSpace(DiscriptionrichTextBox.Text))
                 {
-                    MessageBox.Show("Please Fill All the Blank Details", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please fill all the details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
-                {
-                    using (SqlConnection conn = new SqlConnection(cs))
-                    {
-                        conn.Open();
-                        string insertdata = "insert into tbl_expense(Category,Item,expense,description,date_expense,date_insert) values (@Category,@Item,@expense,@description,@date_expense,GETDATE())";
 
-                        using (SqlCommand cmd = new SqlCommand(insertdata, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@Category", CategorycomboBox.SelectedItem);
-                            cmd.Parameters.AddWithValue("@Item", ItemTextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@expense", ExpensetextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@description", DiscriptionrichTextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@date_expense", dateTimePicker.Value);
-                            cmd.ExecuteNonQuery();
-                            MessageBox.Show("Added Successfully", "Success Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            DisplayExpenseData();
-                            TotalExpense();
-                            conn.Close();
-                            clecontrol();
-                        }
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    conn.Open();
+                    string insertdata = "INSERT INTO tbl_expense(Category,Item,expense,description,date_expense,date_insert) " +
+                                        "VALUES (@Category,@Item,@expense,@description,@date_expense,GETDATE()+1)";
+
+                    using (SqlCommand cmd = new SqlCommand(insertdata, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Category", CategorycomboBox.SelectedItem);
+                        cmd.Parameters.AddWithValue("@Item", ItemTextBox.Text.Trim());
+                        cmd.Parameters.AddWithValue("@expense", Convert.ToDouble(ExpensetextBox.Text.Trim()));
+                        cmd.Parameters.AddWithValue("@description", DiscriptionrichTextBox.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_expense", dateTimePicker.Value);
+                        cmd.ExecuteNonQuery();
                     }
                 }
+
+                MessageBox.Show("Added Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DisplayExpenseData();
+                TotalExpense();
+                ClearControls();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
         }
 
+        // ---------- CLEAR BUTTON ----------
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            clecontrol();
+            ClearControls();
         }
-        private int GetId = 0;
 
+        // ---------- UPDATE RECORD ----------
         private void UpdateButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (CategorycomboBox.SelectedIndex == -1 || ItemTextBox.Text == "" || ExpensetextBox.Text == "" || dateTimePicker.Text == "" || DiscriptionrichTextBox.Text == "")
+                if (GetId == 0)
                 {
-                    MessageBox.Show("Please Select Record", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select a record to update.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
-                {
-                    using (SqlConnection conn = new SqlConnection(cs))
-                    {
-                        conn.Open();
-                        string updatedata = "update tbl_Expense set Category=@Category,Item=@Item,Expense=@Expense,description=@description,date_Expense=@date_Expense,date_insert = GETDATE() where Expense_id = @Expense_id";
 
-                        using (SqlCommand cmd = new SqlCommand(updatedata, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@Expense_id", GetId);
-                            cmd.Parameters.AddWithValue("@Category", CategorycomboBox.SelectedItem);
-                            cmd.Parameters.AddWithValue("@Item", ItemTextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@Expense", ExpensetextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@description", DiscriptionrichTextBox.Text.Trim());
-                            cmd.Parameters.AddWithValue("@date_Expense", dateTimePicker.Value);
-                            cmd.ExecuteNonQuery();
-                            MessageBox.Show("Updated Successfully", "Success Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            DisplayExpenseData();
-                            TotalExpense();
-                            conn.Close();
-                            clecontrol();
-                        }
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    conn.Open();
+                    string updatedata = "UPDATE tbl_expense SET Category=@Category,Item=@Item,expense=@expense,description=@description,date_expense=@date_expense,date_insert=GETDATE()+1 WHERE Expense_id=@Expense_id";
+
+                    using (SqlCommand cmd = new SqlCommand(updatedata, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Expense_id", GetId);
+                        cmd.Parameters.AddWithValue("@Category", CategorycomboBox.SelectedItem);
+                        cmd.Parameters.AddWithValue("@Item", ItemTextBox.Text.Trim());
+                        cmd.Parameters.AddWithValue("@expense", Convert.ToDouble(ExpensetextBox.Text.Trim()));
+                        cmd.Parameters.AddWithValue("@description", DiscriptionrichTextBox.Text.Trim());
+                        cmd.Parameters.AddWithValue("@date_expense", dateTimePicker.Value);
+                        cmd.ExecuteNonQuery();
                     }
                 }
+
+                MessageBox.Show("Updated Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DisplayExpenseData();
+                TotalExpense();
+                ClearControls();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
-
         }
 
+        // ---------- SELECT ROW ----------
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -224,44 +213,40 @@ namespace ExpenseManagementSystem
             }
         }
 
+        // ---------- DELETE RECORD ----------
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (CategorycomboBox.SelectedIndex == -1 || ItemTextBox.Text == "" || ExpensetextBox.Text == "" || dateTimePicker.Text == "" || DiscriptionrichTextBox.Text == "")
+                if (GetId == 0)
                 {
-                    MessageBox.Show("Please Select The Data", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select a record to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
-                {
-                    if (MessageBox.Show("Are you sure you want to Delete ID " + GetId + "?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        using (SqlConnection conn = new SqlConnection(cs))
-                        {
-                            conn.Open();
-                            string deletedata = "delete tbl_Expense where Expense_id = @id";
-                            using (SqlCommand cmd = new SqlCommand(deletedata, conn))
-                            {
-                                cmd.Parameters.AddWithValue("@id", GetId);
-                                cmd.ExecuteNonQuery();
-                                MessageBox.Show("Deleted Successfully", "Success Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                DisplayExpenseData();
-                                TotalExpense();
-                                conn.Close();
-                                clecontrol();
-                            }
-                        }
 
+                if (MessageBox.Show("Are you sure you want to delete ID " + GetId + "?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    using (SqlConnection conn = new SqlConnection(cs))
+                    {
+                        conn.Open();
+                        string deletedata = "DELETE FROM tbl_expense WHERE Expense_id=@id";
+                        using (SqlCommand cmd = new SqlCommand(deletedata, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@id", GetId);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+
+                    MessageBox.Show("Deleted Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DisplayExpenseData();
+                    TotalExpense();
+                    ClearControls();
                 }
-                DisplayExpenseData();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-
             }
-
         }
     }
 }

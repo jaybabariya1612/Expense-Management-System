@@ -10,13 +10,17 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+
 
 namespace ExpenseManagementSystem
 {
     public partial class LoginForm : Form
     {
         public static readonly string cs =
-    @"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
+     @"Server=den1.mssql7.gear.host;Database=sql12793698;User Id=sql12793698;Password=Wd8ij_D1V2h~;TrustServerCertificate=True";
+        //public static readonly string cs =@"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
+        //SqlConnection conn = new SqlConnection(cs);
         SqlConnection conn = new SqlConnection(cs);
         public LoginForm()
         {

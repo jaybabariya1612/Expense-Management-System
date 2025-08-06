@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -9,8 +10,10 @@ namespace ExpenseManagementSystem
 {
     public partial class UCDashboardForm : UserControl
     {
+        //public static readonly string cs =
+        //    @"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
         public static readonly string cs =
-            @"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
+@"Server=den1.mssql7.gear.host;Database=sql12793698;User Id=sql12793698;Password=Wd8ij_D1V2h~;TrustServerCertificate=True";
 
         public UCDashboardForm()
         {
@@ -66,7 +69,7 @@ namespace ExpenseManagementSystem
 
         public void YesterdayIncome()
         {
-            string query = "SELECT SUM(income) FROM tbl_income WHERE CONVERT(Date, date_income) = DATEADD(day, -1, CAST(GETDATE() AS DATE))";
+            string query = "SELECT SUM(income) FROM tbl_income WHERE CONVERT(Date, date_income) = DATEADD(day, -1, CAST(GETDATE()+1 AS DATE))";
             object result = ExecuteScalar(query);
 
             yesterdayIncomeValue.Text = (result != DBNull.Value && result != null)
@@ -76,7 +79,7 @@ namespace ExpenseManagementSystem
         }
         public void YesterdayExpense()
         {
-            string query = "SELECT SUM(Expense) FROM tbl_Expense WHERE CONVERT(Date, date_Expense) = DATEADD(day, -1, CAST(GETDATE() AS DATE))";
+            string query = "SELECT SUM(Expense) FROM tbl_Expense WHERE CONVERT(Date, date_Expense) = DATEADD(day, -1, CAST(GETDATE()+1 AS DATE))";
             object result = ExecuteScalar(query);
 
             yesterdayExpenseValue.Text = (result != DBNull.Value && result != null)
@@ -135,13 +138,13 @@ public void LoadDailyIncomeChart()
         {
             string query = @"SELECT CONVERT(Date, date_income) AS IncomeDate, SUM(income) AS TotalIncome
                          FROM tbl_income
-                         WHERE date_income >= DATEADD(DAY, -6, CAST(GETDATE() AS DATE))
+                         WHERE date_income >= DATEADD(DAY, -6, CAST(GETDATE()+1 AS DATE))
                          GROUP BY CONVERT(Date, date_income)
                          ORDER BY IncomeDate";
 
-            SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmd = new SqlCommand(query, conn);
             conn.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
+                SqlDataReader reader = cmd.ExecuteReader();
 
             incomeChart.Series.Clear();
             Series series = new Series("Daily Income");
@@ -166,7 +169,7 @@ public void LoadDailyIncomeChart()
             {
                 string query = @"SELECT CONVERT(Date, date_Expense) AS ExpenseDate, SUM(Expense) AS TotalExpense
                          FROM tbl_Expense
-                         WHERE date_Expense >= DATEADD(DAY, -6, CAST(GETDATE() AS DATE))
+                         WHERE date_Expense >= DATEADD(DAY, -6, CAST(GETDATE()+1 AS DATE))
                          GROUP BY CONVERT(Date, date_Expense)
                          ORDER BY ExpenseDate";
 

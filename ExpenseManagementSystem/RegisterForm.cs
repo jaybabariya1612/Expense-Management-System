@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,8 +16,15 @@ namespace ExpenseManagementSystem
     public partial class RegisterForm : Form
     {
         public static readonly string cs =
-            @"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
+     @"Server=den1.mssql7.gear.host;Database=sql12793698;User Id=sql12793698;Password=Wd8ij_D1V2h~;TrustServerCertificate=True";
+
+
+        //public static readonly string cs = @"server=sql12.freesqldatabase.com;port=3306;database=sql12793698;user=sql12793698;password=trQQblyzEV;";
+
+        //public static readonly string cs =
+        //    @"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
         SqlConnection conn = new SqlConnection(cs);
+        //SqlConnection conn = new SqlConnection(cs);
 
         public bool CheckConnection()
         {
@@ -72,7 +80,7 @@ namespace ExpenseManagementSystem
                 try
                 {
                     conn.Open();
-                    string selectuser = "select username from tbl_users where username = @username";
+                    string selectuser = "SELECT username FROM tbl_Users WHERE username = @username";
                     using (SqlCommand cmd = new SqlCommand(selectuser, conn))
                     {
                         cmd.Parameters.AddWithValue("@username", UserNameTextBox.Text.Trim());
@@ -80,32 +88,27 @@ namespace ExpenseManagementSystem
                         DataTable dt = new DataTable();
                         adapter.Fill(dt);
 
-                        // Username already exists
                         if (dt.Rows.Count != 0)
                         {
                             string tempusername = UserNameTextBox.Text.Substring(0, 1).ToUpper() + UserNameTextBox.Text.Substring(1);
                             MessageBox.Show(tempusername + " is already existing", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        // Password too short
                         else if (PassWordTextbox.Text.Length < 8)
                         {
                             MessageBox.Show("Invalid Password...! At least 8 characters are needed", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        // Password does not meet strong pattern
                         else if (!Regex.IsMatch(PassWordTextbox.Text, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?""{}|<>]).{8,}$"))
                         {
                             MessageBox.Show("Password must include at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.",
                                             "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        // Passwords don't match
                         else if (PassWordTextbox.Text != ConfirmPassWordTextbox.Text)
                         {
                             MessageBox.Show("Invalid Password...! Passwords do not match", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        // All checks passed → insert user
                         else
                         {
-                            string insertqr = "insert into tbl_users(username,password,date_create) values(@username,@password,GETDATE())";
+                            string insertqr = "INSERT INTO tbl_Users(username,password,date_create) VALUES(@username,@password,GETDATE()+2)";
                             using (SqlCommand cmd1 = new SqlCommand(insertqr, conn))
                             {
                                 cmd1.Parameters.AddWithValue("@username", UserNameTextBox.Text.Trim());
@@ -119,6 +122,7 @@ namespace ExpenseManagementSystem
                             }
                         }
                     }
+
                     conn.Close();
                 }
                 catch (Exception ex)

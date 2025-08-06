@@ -1,17 +1,22 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data;
-using System.Data.SqlClient;
 
 namespace ExpenseManagementSystem
 {
     internal class CategoryData
     {
-        public static readonly string cs =@"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
-        SqlConnection conn = new SqlConnection(cs);
+        public static readonly string cs =
+@"Server=den1.mssql7.gear.host;Database=sql12793698;User Id=sql12793698;Password=Wd8ij_D1V2h~;TrustServerCertificate=True";
+
+        //public static readonly string cs = @"server=sql12.freesqldatabase.com;port=3306;database=sql12793698;user=sql12793698;password=trQQblyzEV;";
+        //public static readonly string cs =@"Data Source=DESKTOP-2A8TSD7;Initial Catalog=Jay_Test;User ID=developer;Password=Destiny123*;";
+        //SqlConnection conn = new SqlConnection(cs);
 
         public int CategoryID { get; set; }
 
@@ -21,7 +26,7 @@ namespace ExpenseManagementSystem
 
         public string CategoryStatus{ get; set; }
         public DateTime Date{ get; set; }
-
+         
         public List<CategoryData> CategoryListData()
         {
             List<CategoryData> lisrdata = new List<CategoryData>();
