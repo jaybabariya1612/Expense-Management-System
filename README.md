@@ -57,8 +57,6 @@ The application uses **SQL Server** with this connection string:
 ```csharp
 Server=den1.mssql7.gear.host;
 Database=sql12793698;
-User Id=sql12793698;
-Password=Wd8ij_D1V2h~;
 TrustServerCertificate=True;
 ````
 
