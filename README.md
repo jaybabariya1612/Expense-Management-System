@@ -126,17 +126,3 @@ This project is licensed under the **MIT License**.
 You are free to use and modify it with attribution.
 
 ````
-
----
-
-### Next steps for you:
-1. **Place the combined screenshot** (`Combined_ExpenseApp.png`) in your project root (same folder as README).  
-2. **Commit & push:**
-   ```bash
-   git add .
-   git commit -m "Added README and screenshot"
-   git push origin main
-````
-
-
-Which one should I prepare next?
